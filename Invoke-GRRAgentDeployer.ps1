@@ -4,9 +4,12 @@
     Param(
     [String]$target,
     [alias("a")]
+    [Parameter(Mandatory=$true)]
     [String]$agent,
+    [Parameter(Mandatory=$true)]
     [alias("u")]
     [String]$username,
+    [Parameter(Mandatory=$true)]
     [alias("p")]
     [SecureString]$password
     )
@@ -26,7 +29,9 @@
     #Add a variable for credentials
     $UserPassSecure = ConvertTo-SecureString $password -AsPlainText -Force
     $UserCredentials = New-Object -TypeName System.Management.Automation.PSCredential $UserName,$UserPassSecure
- 
+    
+    Write-Host "Do you want to identify a list of targets"
+
     #Provide the full path the GRR executable.
     Write-Host "Enter the full path to your GRR Executable: " -ForegroundColor Yellow
     LocalPath = Read-Host  
@@ -48,7 +53,7 @@
         Start-Process $RemotePath -NoNewWindow -PassThru 
         Get-Process -Name GRR*
     }
-    
+
 }
 
 
