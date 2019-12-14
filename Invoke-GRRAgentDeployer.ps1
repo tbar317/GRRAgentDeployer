@@ -2,8 +2,9 @@
 {
     [CmdletBinding()]
     Param(
+    [String]$target,
     [alias("a")]
-    [String]$Agent,
+    [String]$agent,
     [alias("u")]
     [String]$username,
     [alias("p")]
@@ -37,13 +38,13 @@
     Write-Host "The remote path has been set to $RemotePath" -ForegroundColor Cyan
 
     #Establish a session to the remost host to move the executable to the remote system.
-    $Session1 = New-PSSession -ComputerName 172.16.12.5 -Credential Administrator
+    $Session1 = New-PSSession -ComputerName $target -Credential Administrator
     
     #Use the Copy-Item function to move the executable across the established session
     Copy-Item -ToSession $Session1 -Path c:\Tools\dbg_GRR_3.2.0.1_amd64.exe -Destination c:\Tools\dbg_GRR_3.2.0.1_amd64.exe
  
-    Invoke-Command -ComputerName $Target -Credential $UserCredentials -ScriptBlock {
-        Start-Process $RemotePath\$Agent -NoNewWindow -PassThru 
+    Invoke-Command -ComputerName $target -Credential $UserCredentials -ScriptBlock {
+        Start-Process $RemotePath\$agent -NoNewWindow -PassThru 
         Get-Process -Name GRR*
     }
 }
