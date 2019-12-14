@@ -28,12 +28,12 @@
     $UserCredentials = New-Object -TypeName System.Management.Automation.PSCredential $UserName,$UserPassSecure
  
     #Provide the full path the GRR executable.
-    Write-Host "Enter location of your GRR Executable: " -ForegroundColor Yellow
+    Write-Host "Enter the full path to your GRR Executable: " -ForegroundColor Yellow
     LocalPath = Read-Host  
     Write-Host "The local path has been set to $LocalPath" -ForegroundColor Cyan
      
     #Provide the location of where to set the GRR agent on the remote hosts
-    Write-Host "Enter the location on the remote host wher you want to deploy the executable: " -ForegroundColor Yellow
+    Write-Host "Enter the full path on the remote host wher you want to deploy the executable: " -ForegroundColor Yellow
     RemotePath = Read-Host 
     Write-Host "The remote path has been set to $RemotePath" -ForegroundColor Cyan
 
@@ -41,12 +41,14 @@
     $Session1 = New-PSSession -ComputerName $target -Credential Administrator
     
     #Use the Copy-Item function to move the executable across the established session
-    Copy-Item -ToSession $Session1 -Path c:\Tools\dbg_GRR_3.2.0.1_amd64.exe -Destination c:\Tools\dbg_GRR_3.2.0.1_amd64.exe
- 
+    Copy-Item -ToSession $Session1 -Path $LocalPath -Destination $RemotePath
+    
+    Remove-PSSession -Session $Session1
     Invoke-Command -ComputerName $target -Credential $UserCredentials -ScriptBlock {
-        Start-Process $RemotePath\$agent -NoNewWindow -PassThru 
+        Start-Process $RemotePath -NoNewWindow -PassThru 
         Get-Process -Name GRR*
     }
+    
 }
 
 
