@@ -1,6 +1,6 @@
-# DeployGRRAgent
+# GRRAgentDeployer
 
-Invoke-DeployGRRAgent.ps1 is PowerShell script to deploy Google Rapid Response (GRR) agents in a Windows environment. The goal of this project is to quickly deploy GRR agents across your network prior to or during an Incident Response. 
+Invoke-GRRAgentDeployer.ps1 is PowerShell script to deploy Google Rapid Response (GRR) agents in a Windows environment. The goal of this project is to quickly deploy GRR agents across your network prior to or during an Incident Response. 
 
 # Getting Started
 
