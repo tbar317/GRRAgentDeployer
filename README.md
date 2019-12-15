@@ -1,5 +1,45 @@
 # DeployGRRAgent
 
-Invoke-DeployGRRAgent.ps1 is PowerShell script to quickly deploy Google Rapid Response (GRR) agents. The goal of this project is to quickly deploy GRR agents across your network prior to or during and Incident Response.   
+Invoke-DeployGRRAgent.ps1 is PowerShell script to deploy Google Rapid Response (GRR) agents in a Windows environment. The goal of this project is to quickly deploy GRR agents across your network prior to or during an Incident Response. 
 
-This is a project I started working on months ago and just now getting time to circle back around to it and git it live on GitHub. This project is a work-in-progress. I'll remove that statement and add documentation once it's complete.
+# Get Started
+
+Open a Powershell Session (best to use an Administrative session)  
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted  
+##If you plan to deploy to just a single target  
+.\Invoke-GRRAgentDeployer.ps1 -target 192.168.131.101  
+OR  
+##If you plan to deploy your GRR Agents to multiple targets  
+.\Invoke-GRRAgentDeployer.ps1  
+
+PS C:\Users\user.b.subject\Desktop> .\Invoke-GRRAgentDeployer.ps1 -target 192.168.131.101
+Execution Policy has been set to Bypass.
+Trusted Hosts values are set.
+
+Setting up Credentials to use on the remote host(s)...
+
+Enter the domain short name
+TEST2
+
+Enter the username to connect to the remote system(s)
+ghost.admin
+
+Please enter the password to connect to the remote system(s): ****************
+
+Do you want to identify a list of targets: yes or no?
+no
+
+Enter the full path to your GRR Executable:
+C:\Users\user.b.subject\Desktop\pstest.exe
+The local path has been set to C:\Users\user.b.subject\Desktop\pstest.exe
+
+Enter the full path on the remote host wher you want to deploy the executable:
+c:\windows\system32\pstest.exe
+The remote path has been set to c:\windows\system32\pstest.exe
+
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                    PSComputerName
+-------  ------    -----      -----     ------     --  -- -----------                    --------------
+     36       2      312        740       0.00   1784   0 pstest                         192.168.131.101
+     
+GRR agent deployed for host 192.168.131.101
