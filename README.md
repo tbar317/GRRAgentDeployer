@@ -9,7 +9,7 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 ##If you plan to deploy to just a single target  
 .\Invoke-GRRAgentDeployer.ps1 -target 192.168.131.101  
 OR  
-##If you plan to deploy your GRR Agents to multiple targets  
+##If you plan to deploy your GRR Agents to multiple targets 
 .\Invoke-GRRAgentDeployer.ps1  
 
 # Example
