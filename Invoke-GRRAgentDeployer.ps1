@@ -63,9 +63,12 @@
         $RemoteHosts = Get-Content @($FilePath)
     } 
     else {
-        New-Item -Name %temp%/remotehosts.txt -ItemType File
-        Write-Output $target > %temp%/remotehosts.txt
-        $RemoteHosts = Get-Content @(%temp%/remotehosts.txt)
+        $tempdir = [System.IO.path]::GetTempPath()
+        $fakename = [System.IO.path]::GetRandomFileName()
+              
+        $tempplace = New-Item -ItemType Directory -Path (Join-Path $tempdir $fakename)
+        Write-Output $target >$tempplace
+        $RemoteHosts = Get-Content @($tempplace)
     }
 
     #Provide the full path the GRR executable.
