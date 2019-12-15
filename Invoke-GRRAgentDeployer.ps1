@@ -74,26 +74,26 @@
     #Provide the full path the GRR executable.
     Write-Host "Enter the full path to your GRR Executable: " -ForegroundColor Yellow
     $lpath = Read-Host  
-    Write-Host "The local path has been set to $LocalPath" -ForegroundColor Cyan
+    Write-Host "The local path has been set to $lpath" -ForegroundColor Cyan
      
     #Provide the location of where to set the GRR agent on the remote hosts
     Write-Host "Enter the full path on the remote host wher you want to deploy the executable: " -ForegroundColor Yellow
     $rpath = Read-Host 
-    Write-Host "The remote path has been set to $RemotePath" -ForegroundColor Cyan
+    Write-Host "The remote path has been set to $rpath" -ForegroundColor Cyan
 
     foreach ($h in $RemoteHosts) {
         #Establish a session to the remost host to move the executable to the remote system.
         $Session1 = New-PSSession -ComputerName $h -Credential $UserCredentials
       
         #Use the Copy-Item function to move the executable across the established session
-        Copy-Item $lpath -Destination $rpath -ToSession $Session1
+        Copy-Item $lpath -Destination $rpath -ToSession $Session1 -Force -ErrorAction SilentlyContinue
         #Kill the session
         Remove-PSSession -Session $Session1
         #Create a new connection, start the GRR agent, verify it, disconnect and kills session automatically.
         Invoke-Command -ComputerName $h -Credential $UserCredentials -ScriptBlock {
-            Start-Process $using:rpath -NoNewWindow -PassThru 
-            #Get-Process -Name GRR*
-            Get-Process -Name PStest.exe
+            
+            Start-Process -FilePath $using:rpath -NoNewWindow -PassThru
+            #Get-Process -Name * 
         }
 
     Write-Host "GRR agent deployed for host $h" -ForegroundColor Cyan
