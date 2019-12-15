@@ -66,8 +66,8 @@
         $tempdir = [System.IO.path]::GetTempPath()
         $fakename = [System.IO.path]::GetRandomFileName()
               
-        $tempplace = New-Item -ItemType Directory -Path (Join-Path $tempdir $fakename)
-        Write-Output $target >$tempplace
+        $tempplace = New-Item -ItemType File -Path (Join-Path $tempdir $fakename)
+        Write-Output -InputObject $target > $tempplace
         $RemoteHosts = Get-Content @($tempplace)
     }
 
