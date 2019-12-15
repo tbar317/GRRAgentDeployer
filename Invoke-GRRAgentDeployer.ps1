@@ -48,9 +48,7 @@
 
     #Add a variable for credentials
 
-    $UserPassSecure = $password 
-
-    $UserCredentials = New-Object -TypeName System.Management.Automation.PSCredential $domainCreds,$UserPassSecur
+    $UserCredentials = New-Object -TypeName System.Management.Automation.PSCredential $domainCreds,$password
 
     
     Write-Host "Do you want to identify a list of targets: yes or no?" -ForegroundColor Yellow
@@ -63,12 +61,14 @@
         $RemoteHosts = Get-Content @($FilePath)
     } 
     else {
+        #Get the Users temp directory and create a random file in it
         $tempdir = [System.IO.path]::GetTempPath()
         $fakename = [System.IO.path]::GetRandomFileName()
-              
+        #Write the target IP address into the random file and then read the contents of the file into variable $h      
         $tempplace = New-Item -ItemType File -Path (Join-Path $tempdir $fakename)
         Write-Output -InputObject $target > $tempplace
-        $RemoteHosts = Get-Content @($tempplace)
+        #IP address of the target gets assigned to $h for use below
+        $h = Get-Content @($tempplace)
     }
 
     #Provide the full path the GRR executable.
