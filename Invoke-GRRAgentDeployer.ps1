@@ -68,7 +68,7 @@
         $tempplace = New-Item -ItemType File -Path (Join-Path $tempdir $fakename)
         Write-Output -InputObject $target > $tempplace
         #IP address of the target gets assigned to $h for use below
-        $h = Get-Content @($tempplace)
+        $RemoteHosts = Get-Content @($tempplace)
     }
 
     #Provide the full path the GRR executable.
@@ -84,9 +84,9 @@
     foreach ($h in $RemoteHosts) {
         #Establish a session to the remost host to move the executable to the remote system.
         $Session1 = New-PSSession -ComputerName $h -Credential $UserCredentials
-        
+      
         #Use the Copy-Item function to move the executable across the established session
-        Copy-Item -ToSession $Session1 -Path $lpath -Destination $rpath
+        Copy-Item $lpath -Destination $rpath -ToSession $Session1
         #Kill the session
         Remove-PSSession -Session $Session1
         #Create a new connection, start the GRR agent, verify it, disconnect and kills session automatically.
@@ -96,7 +96,7 @@
             Get-Process -Name PStest.exe
         }
 
-        Write-Host "GRR agent deployed for host $h" -ForegroundColor Cyan
+    Write-Host "GRR agent deployed for host $h" -ForegroundColor Cyan
     }
 }
 
