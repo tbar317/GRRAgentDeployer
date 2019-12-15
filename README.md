@@ -2,7 +2,7 @@
 
 Invoke-DeployGRRAgent.ps1 is PowerShell script to deploy Google Rapid Response (GRR) agents in a Windows environment. The goal of this project is to quickly deploy GRR agents across your network prior to or during an Incident Response. 
 
-# Get Started
+# Getting Started
 
 Open a Powershell Session (best to use an Administrative session)  
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted  
@@ -12,34 +12,36 @@ OR
 ##If you plan to deploy your GRR Agents to multiple targets  
 .\Invoke-GRRAgentDeployer.ps1  
 
-PS C:\Users\user.b.subject\Desktop> .\Invoke-GRRAgentDeployer.ps1 -target 192.168.131.101
-Execution Policy has been set to Bypass.
-Trusted Hosts values are set.
+# Example
 
-Setting up Credentials to use on the remote host(s)...
+PS C:\Users\user.b.subject\Desktop> .\Invoke-GRRAgentDeployer.ps1 -target 192.168.131.101  
+Execution Policy has been set to Bypass.  
+Trusted Hosts values are set.  
 
-Enter the domain short name
-TEST2
+Setting up Credentials to use on the remote host(s)...  
 
-Enter the username to connect to the remote system(s)
-ghost.admin
+Enter the domain short name  
+TEST2  
 
-Please enter the password to connect to the remote system(s): ****************
+Enter the username to connect to the remote system(s)  
+ghost.admin 
 
-Do you want to identify a list of targets: yes or no?
-no
+Please enter the password to connect to the remote system(s): ****************  
 
-Enter the full path to your GRR Executable:
-C:\Users\user.b.subject\Desktop\pstest.exe
-The local path has been set to C:\Users\user.b.subject\Desktop\pstest.exe
+Do you want to identify a list of targets: yes or no?  
+no  
 
-Enter the full path on the remote host wher you want to deploy the executable:
-c:\windows\system32\pstest.exe
-The remote path has been set to c:\windows\system32\pstest.exe
+Enter the full path to your GRR Executable:  
+C:\Users\user.b.subject\Desktop\grr.exe  
+The local path has been set to C:\Users\user.b.subject\Desktop\grr.exe  
 
+Enter the full path on the remote host wher you want to deploy the executable:  
+c:\windows\system32\grr.exe  
+The remote path has been set to c:\windows\system32\grr.exe  
 
-Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                    PSComputerName
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                    PSComputerName  
 -------  ------    -----      -----     ------     --  -- -----------                    --------------
-     36       2      312        740       0.00   1784   0 pstest                         192.168.131.101
+     37       2      284        680       0.02   4872   0 grr                            192.168.131.101  
      
-GRR agent deployed for host 192.168.131.101
+GRR agent deployed for host 192.168.131.101  
+
