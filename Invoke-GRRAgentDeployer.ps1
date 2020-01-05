@@ -100,6 +100,5 @@
     }
 }
 
-Invoke-DeployGRRAgent -target 192.168.131.101
 
    
